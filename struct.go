@@ -35,6 +35,12 @@ func main() {
 			return a
 		},
 	}
+	g := struct {
+		foo string
+		i   int
+	}{"fdhgfd", 10}
+	// g.foo = "hgfghf"
+	fmt.Println(g)
 	b := birds{
 		a,
 		false,
