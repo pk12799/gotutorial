@@ -20,12 +20,14 @@ func alphasort(str []rune, depth int) {
 // 	}
 // 	return str
 // }
+
 func main() {
-	str := "parvez"
+	str := "parvezkhan"
 	runes := []rune(str)
 	// fmt.Println(runes)
 	alphasort(runes, 1)
 	// rtoc(runes)
+	fmt.Println(runes)
 	fmt.Printf("%c", runes)
 	fmt.Println()
 }
