@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 func alphasort(str []rune, depth int) {
 	for x := range str {
@@ -21,13 +24,21 @@ func alphasort(str []rune, depth int) {
 // 	return str
 // }
 
+// func main() {
+// 	str := "parvezkhan"
+// 	runes := []rune(str)
+// 	// fmt.Println(runes)
+// 	alphasort(runes, 1)
+// 	// rtoc(runes)
+// 	fmt.Println(runes)
+// 	fmt.Printf("%c", runes)
+// 	fmt.Println()
+// }
+
 func main() {
-	str := "parvezkhan"
-	runes := []rune(str)
-	// fmt.Println(runes)
-	alphasort(runes, 1)
-	// rtoc(runes)
-	fmt.Println(runes)
-	fmt.Printf("%c", runes)
-	fmt.Println()
+	fmt.Println(len("Hello World"))
+	fmt.Println("Hello World"[0])
+	fmt.Println(strconv.Itoa(11235489))
+	var x string = "hgdfshdg"
+	fmt.Println(x)
 }

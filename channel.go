@@ -55,10 +55,6 @@ import "fmt"
 // 	fmt.Println("End Main method")
 // }
 
-// package main
-
-// import "fmt"
-
 // Main function
 func main() {
 
