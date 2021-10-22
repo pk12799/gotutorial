@@ -17,7 +17,7 @@ RUN go build -o /docker-gs-ping
 
 ##
 ## Deploy
-##
+##  multistage
 FROM gcr.io/distroless/base-debian10
 
 WORKDIR /
