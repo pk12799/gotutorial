@@ -1,9 +1,7 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
 )
 
 type Node struct {
@@ -78,12 +76,15 @@ func main() {
 	fmt.Scan(&n)
 
 	for i := 0; i < n; i++ {
-		f := bufio.NewScanner(os.Stdin)
-		for f.Scan() {
-			input := f.Text()
-			link.insert(input)
-			link.display()
-		}
+		// f := bufio.NewScanner(os.Stdin)
+		// for f.Scan() {
+		// 	input := f.Text()
+		// 	link.insert(input)
+		// 	link.display()
+		// }
+		var e int
+		fmt.Scan(&e)
+		link.insert(e)
 
 	}
 	fmt.Println("----------------------------------")

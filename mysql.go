@@ -15,7 +15,8 @@ type Tag struct {
 }
 
 func main() {
-	s, err := sql.Open("mysql", "root@(localhost:3306)/golang")
+	s, err := sql.Open("mysql", "root@tcp(localhost:3306)/golang")
+
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -38,6 +39,7 @@ func main() {
 		}
 		log.Println(tag.ID, tag.Name, tag.age, tag.email)
 	}
+	// json.Marshal([]bytes,tag)
 	// fmt.Println(sele)
 	defer sele.Close()
 }
