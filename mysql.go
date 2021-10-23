@@ -27,19 +27,18 @@ func main() {
 		log.Fatal(err)
 	}
 	defer insert.Close()
-	sele, err := s.Query("select * from users")
+	d := s.
+	read, err := s.Query("select * from users")
 	if err != nil {
 		log.Fatal(err)
 	}
-	for sele.Next() {
+	for read.Next() {
 		var tag Tag
-		err = sele.Scan(&tag.ID, &tag.Name, &tag.age, &tag.email)
+		err = read.Scan(&tag.ID, &tag.Name, &tag.age, &tag.email)
 		if err != nil {
 			log.Panic(err.Error())
 		}
 		log.Println(tag.ID, tag.Name, tag.age, tag.email)
 	}
-	// json.Marshal([]bytes,tag)
-	// fmt.Println(sele)
-	defer sele.Close()
+	defer read.Close()
 }
