@@ -31,7 +31,6 @@ func main() {
 		country: "dsgfhf",
 		res: func(ma int, tp int) int {
 			a := ma * tp
-			fmt.Println(a)
 			return a
 		},
 	}

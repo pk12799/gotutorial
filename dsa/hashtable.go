@@ -83,13 +83,24 @@ func hash(key string) int {
 
 func main() {
 	Hash := Init()
-	fmt.Println(Hash)
-
-	test := &bucket{}
-	test.insert("RANDY")
-	test.insert("randy")
-	fmt.Println(test.search("RANDY"))
-	test.insert("sANDY")
-	test.delete("RANDY")
-
+	// fmt.Println(Hash)
+	list := []string{
+		"24758",
+		"ritik",
+		"indra",
+		"nikhil",
+		"parvez Khan",
+		"mantu",
+		"pankaj",
+		"satytam",
+	}
+	// test := &bucket{}
+	for _, v := range list {
+		Hash.Insert(v)
+	}
+	// fmt.Println(test.search("parvez"))
+	// // test.insert("sANDY")
+	// // test.delete("RANDY")
+	fmt.Println(*Hash)
+	fmt.Println(Hash.Search("parvez "))
 }
