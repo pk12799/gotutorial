@@ -26,9 +26,15 @@ func (l Linkl) display() {
 	}
 
 }
+
 func (l *Linkl) delete(val int) {
 	if l.length == 0 {
 		return
+	}
+	if l.head.data == val {
+		l.head = l.head.next
+		l.length--
+
 	}
 	prev := l.head
 	for prev.next.data != val {
@@ -44,7 +50,7 @@ func main() {
 	node3 := &Node{data: 78}
 	node2 := &Node{data: 21}
 
-	node4 := &Node{data: 78}
+	node4 := &Node{data: 58}
 
 	list.Insert(node1)
 
@@ -62,9 +68,11 @@ func main() {
 	list.display()
 	list.delete(48)
 	list.delete(11)
-	list.delete(78)
-	list.delete(78)
+	// list.delete(21)
+	// list.delete(78)
 
+	fmt.Println(*list.head)
+	// list.delete(58)
 	fmt.Println(*list.head)
 	list.display()
 }

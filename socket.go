@@ -1,44 +1,68 @@
-// package main
+package main
 
-// import (
-// 	"log"
-// 	"net/http"
+import (
+	"log"
+	"net/http"
+	"strings"
 
-// 	socketio "github.com/googollee/go-socket.io"
-// )
+	socketio "github.com/googollee/go-socket.io"
+)
 
-// func main() {
+func main() {
+	sio := socketio.NewSocketIOServer(&socketio.Config{})
 
-// 	server, err := socketio.NewServer(nil)
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
+	// Set the on connect handler
+	sio.On("connect", func(ns *socketio.NameSpace) {
+		log.Println("Connected: ", ns.Id())
+		sio.Broadcast("connected", ns.Id())
+	})
 
-// 	server.On("connection", func(so socketio.Socket) {
+	// Set the on disconnect handler
+	sio.On("disconnect", func(ns *socketio.NameSpace) {
+		log.Println("Disconnected: ", ns.Id())
+		sio.Broadcast("disconnected", ns.Id())
+	})
 
-// 		log.Println("on connection")
+	// Set a handler for news messages
+	sio.On("news", func(ns *socketio.NameSpace, message string) {
+		sio.Broadcast("news", message)
+	})
 
-// 		so.Join("chat")
+	// Set a handler for ping messages
+	sio.On("ping", func(ns *socketio.NameSpace) {
+		ns.Emit("pong", nil)
+	})
 
-// 		so.On("chat message", func(msg string) {
-// 			log.Println("emit:", so.Emit("chat message", msg))
-// 			so.BroadcastTo("chat", "chat message", msg)
-// 		})
+	// Set an on connect handler for the pol channel
+	sio.Of("/pol").On("connect", func(ns *socketio.NameSpace) {
+		log.Println("Pol Connected: ", ns.Id())
+	})
 
-// 		so.On("disconnection", func() {
-// 			log.Println("on disconnect")
-// 		})
-// 	})
+	// We can broadcast messages. Set a handler for news messages from the pol
+	// channel
+	sio.Of("/pol").On("news", func(ns *socketio.NameSpace, message string) {
+		sio.In("/pol").Broadcast("news", message)
+	})
 
-// 	server.On("error", func(so socketio.Socket, err error) {
-// 		log.Println("error:", err)
-// 	})
+	// And respond to messages! Set a handler with a response for poll messages
+	// on the pol channel
+	sio.Of("/pol").On("poll", func(ns *socketio.NameSpace, message string) bool {
+		if strings.Contains(message, "Nixon") {
+			return true
+		}
 
-// 	http.Handle("/socket.io/", server)
+		return false
+	})
 
-// 	fs := http.FileServer(http.Dir("static"))
-// 	http.Handle("/", fs)
+	// Set an on disconnect handler for the pol channel
+	sio.Of("/pol").On("disconnect", func(ns *socketio.NameSpace) {
+		log.Println("Pol Disconnected: ", ns.Id())
+	})
 
-// 	log.Println("Serving at localhost:5000...")
-// 	log.Fatal(http.ListenAndServe(":5000", nil))
-// }
+	// Serve our website
+	sio.Handle("/", http.FileServer(http.Dir("./www/")))
+
+	// Start listening for socket.io connections
+	log.Println("listening on port 3000")
+	log.Fatal(http.ListenAndServe(":3000", sio))
+}

@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -13,6 +14,11 @@ type Tag struct {
 	age   int    `json :"age"`
 	email string `json:"email"`
 }
+type input struct {
+	name  string
+	age   int
+	email string
+}
 
 func main() {
 	s, err := sql.Open("mysql", "root@tcp(localhost:3306)/golang")
@@ -20,14 +26,18 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	// fmt.Println()
+
 	defer s.Close()
-	insert, err := s.Query("insert into users(name, age, email) values('parvez', 22, 'parvze@gmail.ciom')")
+	var ins []string
+	ins = append(ins, "(?,?)")
+	st := fmt.Sprint("insert into users(name, age, email) values('name',12,'email')")
+	insert, err := s.Query(st)
+	// insert.LastInsertId()
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer insert.Close()
-	d := s.
+	// d := s.
 	read, err := s.Query("select * from users")
 	if err != nil {
 		log.Fatal(err)
