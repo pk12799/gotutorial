@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <input type="text" name="msg" value="">
+    <input type="button" onclick="myFunction()" value="click">
+    <script>
+
+function myFunction() {
+            var x = document.getElementsByName("msg")[0].value;
+           
+            let socket = new WebSocket("ws://localhost:8080/ws");
+           
+            socket.onopen = () => {
+             
+                socket.send(x);
+              
+            }
+
+            socket.onclose = (event) => {
+                console.log("socket closed: ", event);
+                
+            }
+            socket.onerror = (error) => {
+                console.log("socket Error: ", error);
+            }
+            socket.onmessage = (msg) => {
+                console.log(msg);
+            }
+        }
+    </script>
+</body>
+
+</html>
