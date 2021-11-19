@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>querstion</title>
+    <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
+</head>
+<body>
+    <form method="post" action="/home">
+        <textarea name="question"  class="form-control" rows="2" ></textarea>
+        <button type="submit"> send</button>
+    </form>
+    <div class="container m-7">
+        <h3 class="d-flex"></h3>
+    </div>
+
+    <script>
+        CKEDITOR.replace( 'question' );
+</script>
+
+
+</body>
+</html>
