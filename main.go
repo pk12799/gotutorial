@@ -37,8 +37,6 @@
 // }
 // .......new ........
 
-
-
 package main
 
-r := gin.Default()
+// r := gin.Default()
